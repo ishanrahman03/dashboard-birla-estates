@@ -141,8 +141,8 @@ export const MaterialsDetails: React.FC = () => {
         </div>
 
         {/* Embodied Carbon Analysis */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-          <Card className="lg:col-span-2">
+        <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 mb-6">
+          <Card>
             <CardHeader>
               <CardTitle>Embodied Carbon Reduction Strategies</CardTitle>
             </CardHeader>
@@ -175,16 +175,6 @@ export const MaterialsDetails: React.FC = () => {
               </div>
             </CardContent>
           </Card>
-          
-          <div className="flex items-center justify-center">
-            <GaugeChart
-              value={350}
-              max={600}
-              label="Avg. Embodied Carbon"
-              unit="kgCO₂e/m²"
-              color="#8b5cf6"
-            />
-          </div>
         </div>
 
         {/* Project-wise Material Performance */}

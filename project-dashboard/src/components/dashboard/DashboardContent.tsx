@@ -4,8 +4,6 @@ import { ESGKpiCard } from './ESGKpiCard';
 import { TimeSeriesChart } from './TimeSeriesChart';
 import { BreakdownChart } from './BreakdownChart';
 import { StackedBarChart } from './StackedBarChart';
-import { HeatmapChart } from './HeatmapChart';
-import { ESGLeadershipCommitments } from './ESGLeadershipCommitments';
 import { Card, CardHeader, CardTitle, CardContent } from '../ui/Card';
 import { Badge } from '../ui/Badge';
 import { 
@@ -19,7 +17,6 @@ import {
   energySourceData,
   wasteBreakdownData,
   emissionsData,
-  performanceHeatmapData,
   smartAlerts,
   esgTargets,
   projectsData
@@ -33,6 +30,19 @@ interface DashboardContentProps {
 
 export const DashboardContent: React.FC<DashboardContentProps> = ({ activeTab, selectedProject }) => {
   const navigate = useNavigate();
+
+  // Filter projects based on selection
+  const filteredProjects = useMemo(() => {
+    if (selectedProject === 'all') {
+      return projectsData;
+    } else if (selectedProject === 'commercial') {
+      return projectsData.filter(p => p.type === 'commercial');
+    } else if (selectedProject === 'residential') {
+      return projectsData.filter(p => p.type === 'residential');
+    } else {
+      return projectsData.filter(p => p.id === selectedProject);
+    }
+  }, [selectedProject]);
 
   // Filter data based on selected project
   const filteredKpiData = useMemo(() => {
@@ -88,7 +98,7 @@ export const DashboardContent: React.FC<DashboardContentProps> = ({ activeTab, s
                 <p className="text-sm font-medium">{alert.message}</p>
                 {alert.projectId && (
                   <p className="text-xs text-gray-500 mt-1">
-                    Project: {projectsData.find(p => p.id === alert.projectId)?.name}
+                    Project: {filteredProjects.find(p => p.id === alert.projectId)?.name || projectsData.find(p => p.id === alert.projectId)?.name}
                   </p>
                 )}
               </div>
@@ -159,23 +169,11 @@ export const DashboardContent: React.FC<DashboardContentProps> = ({ activeTab, s
               ))}
             </div>
 
-            <HeatmapChart
-              title="Site-wise ESG Performance Score"
-              data={performanceHeatmapData}
-              months={['Energy', 'Water', 'Waste', 'Emissions', 'Materials']}
-              className="mb-6"
-            />
-
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {renderInsightsPanel()}
               {renderTargetsProgress()}
             </div>
           </>
-        );
-
-      case 'leadership':
-        return (
-          <ESGLeadershipCommitments className="mb-6" />
         );
 
       case 'energy':
@@ -201,7 +199,7 @@ export const DashboardContent: React.FC<DashboardContentProps> = ({ activeTab, s
               />
               <StackedBarChart
                 title="Project-wise Energy Consumption"
-                data={projectsData.map(p => ({
+                data={filteredProjects.map(p => ({
                   name: p.name,
                   'Grid Energy': p.energyMetrics.totalEnergy * (1 - p.energyMetrics.renewableShare / 100),
                   'Renewable Energy': p.energyMetrics.totalEnergy * (p.energyMetrics.renewableShare / 100)

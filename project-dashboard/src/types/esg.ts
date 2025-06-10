@@ -72,6 +72,7 @@ export interface ProjectData {
   location: string;
   area: number; // m²
   status: 'planning' | 'construction' | 'completed';
+  type: 'commercial' | 'residential';
   certifications: string[];
   energyMetrics: EnergyMetrics;
   waterMetrics: WaterMetrics;

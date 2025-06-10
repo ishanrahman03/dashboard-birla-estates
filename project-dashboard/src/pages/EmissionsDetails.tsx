@@ -136,30 +136,14 @@ export const EmissionsDetails: React.FC = () => {
             colors={['#f59e0b', '#ef4444', '#7c3aed']}
             units={['tCO₂e', 'tCO₂e', 'tCO₂e']}
           />
-          <div className="grid grid-cols-2 gap-4">
-            <GaugeChart
-              value={0.02}
-              max={0.05}
-              label="GHG Intensity"
-              unit="tCO₂e/m²"
-              color="#ef4444"
-            />
-            <GaugeChart
-              value={46}
-              max={100}
-              label="YoY Reduction"
-              unit="%"
-              color="#10b981"
-            />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           <BreakdownChart
             title="Emissions by Scope (FY 2023-24)"
             data={emissionsBreakdown}
             unit="tCO₂e"
           />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           <Card>
             <CardHeader>
               <CardTitle>Carbon Reduction Initiatives</CardTitle>

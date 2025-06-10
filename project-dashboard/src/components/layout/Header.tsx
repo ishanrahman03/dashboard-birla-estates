@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Sun, Moon, Home, Zap, Droplet, Recycle, Cloud, Package, Bell, Menu, Building2, Award } from 'lucide-react';
+import { Sun, Moon, Home, Zap, Droplet, Recycle, Cloud, Package, Bell, Menu } from 'lucide-react';
 import { Switch } from '../ui/Switch';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
 import { Select } from '../ui/Select';
 import { projectsData } from '../../data/esgData';
+import birlaEstatesLogo from '../../assets/birla estates.png';
 
 interface HeaderProps {
   isDarkMode: boolean;
@@ -36,7 +37,6 @@ export const Header: React.FC<HeaderProps> = ({
   
   const navItems: NavItem[] = [
     { id: 'overview', label: 'Overview', icon: <Home size={18} />, path: '/' },
-    { id: 'leadership', label: 'Leadership', icon: <Award size={18} />, path: '/leadership' },
     { id: 'energy', label: 'Energy', icon: <Zap size={18} />, path: '/energy' },
     { id: 'water', label: 'Water', icon: <Droplet size={18} />, path: '/water' },
     { id: 'waste', label: 'Waste', icon: <Recycle size={18} />, path: '/waste' },
@@ -46,6 +46,8 @@ export const Header: React.FC<HeaderProps> = ({
 
   const projectOptions = [
     { value: 'all', label: 'All Projects' },
+    { value: 'commercial', label: 'Commercial Projects' },
+    { value: 'residential', label: 'Residential Projects' },
     ...projectsData.map(p => ({ value: p.id, label: p.name }))
   ];
 
@@ -66,8 +68,12 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
           
           <div className="flex items-center">
-            <Building2 className="h-8 w-8 text-green-600" />
-            <div className="ml-3">
+            <img 
+              src={birlaEstatesLogo} 
+              alt="Birla Estates" 
+              className="h-10 w-auto mr-3"
+            />
+            <div>
               <span className="text-xl font-bold text-gray-900 dark:text-white">Birla Estates</span>
               <span className="text-xs text-gray-500 dark:text-gray-400 block">ESG Dashboard</span>
             </div>
@@ -75,30 +81,71 @@ export const Header: React.FC<HeaderProps> = ({
 
           <div className="flex-1" />
           
-          <div className="flex items-center space-x-4">
-            <Select
-              value={selectedProject}
-              onChange={(e) => setSelectedProject(e.target.value)}
-              className="w-48"
-            >
-              {projectOptions.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </Select>
+          <div className="flex items-center gap-4">
+            <div className="relative z-20">
+              <Select
+                value={selectedProject}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedProject(e.target.value)}
+                className="min-w-[200px]"
+                options={projectOptions}
+              />
+            </div>
             
-            <Button
-              variant="ghost"
-              size="sm"
-              className="relative"
-              onClick={() => setShowAlerts(!showAlerts)}
-            >
-              <Bell size={20} />
-              <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center">
-                3
-              </Badge>
-            </Button>
+            <div className="relative">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="relative hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full p-2"
+                onClick={() => setShowAlerts(!showAlerts)}
+              >
+                <Bell size={20} className="text-gray-600 dark:text-gray-300" />
+                <Badge 
+                  variant="destructive" 
+                  className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center text-xs"
+                >
+                  3
+                </Badge>
+              </Button>
+              
+              {showAlerts && (
+                <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-30">
+                  <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+                    <h3 className="text-sm font-semibold">Notifications</h3>
+                  </div>
+                  <div className="max-h-[300px] overflow-y-auto">
+                    {[1, 2, 3].map((_, i) => (
+                      <div 
+                        key={i}
+                        className="p-4 border-b border-gray-200 dark:border-gray-700 last:border-0 hover:bg-gray-50 dark:hover:bg-gray-700"
+                      >
+                        <div className="flex items-start gap-3">
+                          <div className="flex-shrink-0">
+                            <Bell size={16} className="text-blue-500" />
+                          </div>
+                          <div>
+                            <p className="text-sm text-gray-900 dark:text-gray-100">
+                              Energy consumption spike detected
+                            </p>
+                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                              2 hours ago
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="w-full text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300"
+                    >
+                      View all notifications
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </div>
             
             <div className="flex items-center space-x-2">
               <Sun size={18} className="text-gray-600 dark:text-gray-400" />

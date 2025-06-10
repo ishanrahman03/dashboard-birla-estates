@@ -253,6 +253,7 @@ export const projectsData: ProjectData[] = [
     location: 'Santacruz, Mumbai',
     area: 125000,
     status: 'construction',
+    type: 'residential',
     certifications: ['IGBC Gold', 'WELL Certified'],
     energyMetrics: {
       totalEnergy: 12.5,
@@ -303,6 +304,7 @@ export const projectsData: ProjectData[] = [
     location: 'Worli, Mumbai',
     area: 180000,
     status: 'construction',
+    type: 'commercial',
     certifications: ['IGBC Platinum', 'EDGE Advanced'],
     energyMetrics: {
       totalEnergy: 18.0,
@@ -353,6 +355,7 @@ export const projectsData: ProjectData[] = [
     location: 'Kalyan, Mumbai',
     area: 350000,
     status: 'planning',
+    type: 'residential',
     certifications: ['IGBC Pre-certified Gold'],
     energyMetrics: {
       totalEnergy: 28.0,
@@ -396,6 +399,108 @@ export const projectsData: ProjectData[] = [
       co2AvoidedByMaterials: 850
     },
     climateRiskScore: 4.1
+  },
+  {
+    id: 'birla-navya',
+    name: 'Birla Navya',
+    location: 'Andheri, Mumbai',
+    area: 220000,
+    status: 'construction',
+    type: 'commercial',
+    certifications: ['IGBC Gold'],
+    energyMetrics: {
+      totalEnergy: 22.0,
+      energyIntensity: 0.10,
+      renewableShare: 20,
+      renewableEnergy: 4.4,
+      sitesOnGreenPower: 0,
+      powerFactor: 0.91
+    },
+    waterMetrics: {
+      totalWaterConsumed: 138.6,
+      waterIntensity: 0.63,
+      recycledWater: 55,
+      recycledWaterPercent: 39.7,
+      rainwaterHarvested: 25,
+      rainwaterPotential: 50
+    },
+    wasteMetrics: {
+      totalWaste: 1500,
+      constructionDebris: 1350,
+      organicWaste: 25,
+      hazardousWaste: 18,
+      eWaste: 10,
+      wasteRecycled: 1230,
+      diversionRate: 82
+    },
+    emissionsMetrics: {
+      scope1: 80,
+      scope2: 580,
+      totalEmissions: 660,
+      ghgIntensity: 0.0030,
+      co2Avoided: 720,
+      yearOverYearReduction: 25
+    },
+    materialMetrics: {
+      recycledMaterialPercent: 35,
+      greenMaterialPercent: 50,
+      embodiedCarbon: 390,
+      cementReplaced: 30,
+      materialsWithEPD: 30,
+      co2AvoidedByMaterials: 720
+    },
+    climateRiskScore: 3.5
+  },
+  {
+    id: 'birla-alokya',
+    name: 'Birla Alokya',
+    location: 'Thane, Mumbai',
+    area: 150000,
+    status: 'construction',
+    type: 'residential',
+    certifications: ['IGBC Silver', 'EDGE'],
+    energyMetrics: {
+      totalEnergy: 15.0,
+      energyIntensity: 0.10,
+      renewableShare: 18,
+      renewableEnergy: 2.7,
+      sitesOnGreenPower: 0,
+      powerFactor: 0.89
+    },
+    waterMetrics: {
+      totalWaterConsumed: 94.5,
+      waterIntensity: 0.63,
+      recycledWater: 40,
+      recycledWaterPercent: 42.3,
+      rainwaterHarvested: 18,
+      rainwaterPotential: 35
+    },
+    wasteMetrics: {
+      totalWaste: 1000,
+      constructionDebris: 900,
+      organicWaste: 18,
+      hazardousWaste: 12,
+      eWaste: 7,
+      wasteRecycled: 850,
+      diversionRate: 85
+    },
+    emissionsMetrics: {
+      scope1: 55,
+      scope2: 420,
+      totalEmissions: 475,
+      ghgIntensity: 0.0032,
+      co2Avoided: 580,
+      yearOverYearReduction: 18
+    },
+    materialMetrics: {
+      recycledMaterialPercent: 32,
+      greenMaterialPercent: 48,
+      embodiedCarbon: 400,
+      cementReplaced: 28,
+      materialsWithEPD: 28,
+      co2AvoidedByMaterials: 580
+    },
+    climateRiskScore: 3.8
   }
 ];
 
@@ -500,11 +605,3 @@ export const materialTypeData: ChartDataPoint[] = [
   { name: 'Others', value: 7, green: 3, conventional: 4 }
 ];
 
-// Site-wise performance heatmap data
-export const performanceHeatmapData = [
-  { site: 'Birla Aurora', energy: 95, water: 88, waste: 78, emissions: 98, materials: 85 },
-  { site: 'Birla Niyaara', energy: 75, water: 82, waste: 80, emissions: 65, materials: 78 },
-  { site: 'Birla Vanya', energy: 65, water: 75, waste: 75, emissions: 55, materials: 65 },
-  { site: 'Birla Navya', energy: 80, water: 85, waste: 82, emissions: 70, materials: 72 },
-  { site: 'Birla Alokya', energy: 70, water: 78, waste: 85, emissions: 60, materials: 68 }
-];

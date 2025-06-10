@@ -45,7 +45,6 @@ function App() {
           <div className="container mx-auto px-4">
             <Routes>
               <Route path="/" element={<DashboardContent activeTab={activeTab} selectedProject={selectedProject} />} />
-              <Route path="/leadership" element={<DashboardContent activeTab="leadership" selectedProject={selectedProject} />} />
               <Route path="/energy" element={<EnergyDetails />} />
               <Route path="/water" element={<WaterDetails />} />
               <Route path="/waste" element={<WasteDetails />} />
